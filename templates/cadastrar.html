@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="./static/css/login.css">
+<!------ Include the above in your HEAD tag ---------->
+
+<!-- Login Form -->
+<p class="text-primary">{{msg}}</p>
+<form action="/cadastrar" method="post">
+    <input type="text" id="login" name="login" placeholder="login">
+    <input type="password" id="senha" name="senha" placeholder="senha">
+    <input type="submit" value="Cadastrar">
+</form>
+<a href="/login">Voltar</a>
+<br>
+<br>
+
+{% endblock %}
