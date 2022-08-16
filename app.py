@@ -7,21 +7,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/cante'
 db = SQLAlchemy(app)
 
+
 class Usuario(db.Model):
     __usuario__ = "usuario"
-    id_usuario = db.Column(db.Integer, primary_key = True)
-    login = db.Column(db.String(255), unique = True)
+    id_usuario = db.Column(db.Integer, primary_key=True)
+    login = db.Column(db.String(255), unique=True)
     senha = db.Column(db.String(255))
 
-    def __init__(self,login,senha):
+    def __init__(self, login, senha):
         self.login = login
         self.senha = senha
+
 
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
-@app.route("/login", methods=['GET','POST'])
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     usuario = Usuario.query.all()
     msg = ""
@@ -42,21 +45,23 @@ def login():
                 msg = ("Usuario ou senha errada")
         except:
             msg = ("usuario ou senha errada")
-    return render_template("login.html", msg = msg, id_usuario = id_usuario)
+    return render_template("login.html", msg=msg, id_usuario=id_usuario)
 
-@app.route("/cadastrar", methods=['GET','POST'])
+
+@app.route("/cadastrar", methods=['GET', 'POST'])
 def cadastrar():
     msg = ""
     if request.method == 'POST':
         try:
-            login = Usuario(request.form['login'],request.form['senha'],)
+            login = Usuario(request.form['login'], request.form['senha'],)
             db.session.add(login)
             db.session.commit()
             msg = ("usuario criado com sucesso!")
         except:
             msg = ("esse usuario ja existe!")
-    return render_template('cadastrar.html', msg = msg)
+    return render_template('cadastrar.html', msg=msg)
+
 
 if __name__ == "__main__":
-    #db.create_all()
+    # db.create_all()
     app.run(debug=True)
